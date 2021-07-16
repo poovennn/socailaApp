@@ -1,0 +1,9 @@
+/* .home{
+    background-color: aqua;
+} */
+
+
+.home_container{
+    display: flex;
+    justify-content: space-between;
+}
