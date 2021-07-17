@@ -35,7 +35,7 @@ function Share() {
     const newpost = {
       userId: user._id,
       desc: desc.current.value,
-      img: url,
+      img: fileurl,
     };
 
     try {
