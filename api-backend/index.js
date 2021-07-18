@@ -6,6 +6,8 @@ const morgan = require("morgan");
 const userRoute = require("./routes/user");
 const userAuth = require("./routes/auth");
 const userPost = require("./routes/post");
+const userConversation = require("./routes/conversation");
+const userMessages = require("./routes/messages");
 
 const app = express();
 dotenv.config();
@@ -24,6 +26,8 @@ app.use(morgan("common"));
 app.use("/api/users", userRoute);
 app.use("/api/auth", userAuth);
 app.use("/api/post", userPost);
+app.use("/api/conversations", userConversation);
+app.use("/api/messages", userMessages);
 
 let port = process.env.PORT || 8080;
 

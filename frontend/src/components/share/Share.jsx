@@ -14,7 +14,7 @@ function Share() {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const desc = useRef();
   const [file, setFile] = useState(null);
-  const [url, setUrl] = useState(null);
+  const [url, setUrl] = useState("");
 
   const handlechange = (e) => {
     setFile(e.target.files[0]);
@@ -22,15 +22,14 @@ function Share() {
 
   const handlesubmit = async (e) => {
     e.preventDefault();
-    if (file) {
-      const storageref = storage.ref("user_posts");
-      const fileref = storageref.child(file.name);
-      await fileref.put(file);
-      console.log("fileuploaed");
-      const fileurl = await fileref.getDownloadURL();
-      console.log(fileurl);
-      setUrl(fileurl);
-    }
+
+    const storageref = storage.ref("posts");
+    const fileref = storageref.child(file.name);
+    await fileref.put(file);
+    console.log("fileuploaed");
+    const fileurl = await fileref.getDownloadURL();
+    console.log(fileurl);
+    setUrl(fileurl);
 
     const newpost = {
       userId: user._id,
@@ -45,7 +44,7 @@ function Share() {
       console.log(err);
     }
   };
-  console.log(url);
+
   return (
     <div className="share">
       <div className="share_wrapper">

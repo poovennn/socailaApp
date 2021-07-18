@@ -19,7 +19,7 @@ function Rightbar({ user }) {
   useEffect(() => {
     const getfriendlist = async () => {
       try {
-        const friendlist = await axios.get("/users/friends/" + user._id);
+        const friendlist = await axios.get(`/users/friends/${user._id}`);
         setFriends(friendlist.data);
       } catch (err) {
         console.log(err);
@@ -27,6 +27,7 @@ function Rightbar({ user }) {
     };
     getfriendlist();
   }, [user]);
+  console.log(friends);
 
   const handleclick = async () => {
     try {
@@ -60,7 +61,7 @@ function Rightbar({ user }) {
         <h4 className="rightbar_title">Online Friends</h4>
         <ul className="rightbar_friendlists">
           {User.map((u) => (
-            <Online user={u} />
+            <Online key={u.id} user={u} />
           ))}
         </ul>
       </>
@@ -101,6 +102,7 @@ function Rightbar({ user }) {
         <div className="rightbar_followings">
           {friends.map((friend) => (
             <Link
+              key={friend._id}
               to={"/profile/" + friend.username}
               style={{ textDecoration: "none" }}
             >
