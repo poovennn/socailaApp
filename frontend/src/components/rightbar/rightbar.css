@@ -1,0 +1,142 @@
+.rightbar {
+  flex: 3.5;
+  /* background-color:aqua; */
+}
+
+.rightbar_wrapper {
+  padding: 20px 20px 0 0;
+}
+
+.birthday {
+  display: flex;
+  align-items: center;
+  /* justify-content: space-between; */
+}
+
+.birthday_img {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+}
+
+.birthday_text {
+  font-weight: 300;
+  font-size: 15px;
+}
+
+.rightbar_ad {
+  width: 100%;
+  border-radius: 10px;
+  margin: 20px 0;
+}
+
+.rightbar_title {
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+.rightbar_friendlists {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+/* 
+.rightbar_friend{
+    display: flex;
+    align-items: center;
+    margin-bottom: 1px;
+    position: relative;
+}
+
+.rightbar_profile{
+    margin: 10px;
+    position: relative;
+   display: flex;
+   align-items: center;
+}
+
+.rightbar_profile_img{
+    position: relative;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+    
+}
+
+
+
+.rightbar_profile_online{
+    height: 12px;
+    width: 12px;
+    background-color: limegreen;
+    position: absolute;
+    border-radius: 50%;
+    top: -2px;
+    left: 30px;
+    border: 2px solid white;
+}
+ */
+
+.rightbar_title {
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+.rightbar_info {
+  margin-bottom: 30px;
+}
+
+.rightbar_infoitem {
+  margin-bottom: 10px;
+}
+
+.rightbar_infokey {
+  font-weight: 500;
+  color: grey;
+}
+
+.rightbar_infovalue {
+  font-weight: 300;
+  color: #555;
+}
+
+.rightbar_followings {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.rightbar_following {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+
+.rightbar_followingsimg {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.rightbar_topbtn {
+  margin-top: 30px;
+  margin-bottom: 10px;
+  border: none;
+  background-color: aquamarine;
+  border-radius: 5px;
+  padding: 5px 10px;
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.rightbar_topbtn:focus {
+  outline: none;
+}

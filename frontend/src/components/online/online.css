@@ -1,0 +1,38 @@
+
+.rightbar_friend{
+    display: flex;
+    align-items: center;
+    margin-bottom: 1px;
+    /* position: relative; */
+}
+
+.rightbar_profile{
+    margin: 10px;
+    position: relative;
+   display: flex;
+   align-items: center;
+}
+
+.rightbar_profile_img{
+    position: relative;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+    
+}
+
+
+
+.rightbar_profile_online{
+    height: 12px;
+    width: 12px;
+    background-color: limegreen;
+    position: absolute;
+    border-radius: 50%;
+    top: -2px;
+    left: 30px;
+    border: 2px solid white;
+}
+
