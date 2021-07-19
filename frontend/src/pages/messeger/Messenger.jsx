@@ -6,14 +6,44 @@ import Chatonline from "../../components/chatonline/Chatonline";
 import { useContext, useEffect, useRef, useState } from "react";
 import { Authcontext } from "../../context/Authcontext";
 import axios from "axios";
+import { io } from "socket.io-client";
 
 function Messenger() {
   const [conversation, setConversation] = useState([]);
   const [currentChat, setCurrentChat] = useState(null);
   const [messages, setMessages] = useState([]);
   const [newmessage, setNewmessage] = useState([]);
+  const [arrivalmessage, setArrivalmessage] = useState([]);
+  const [onlineuser, setOnlineuser] = useState([]);
   const { user } = useContext(Authcontext);
   const scrollRef = useRef();
+  const socket = useRef();
+
+  useEffect(() => {
+    socket.current = io("ws://localhost:9090");
+    socket.current.on("getmessage", (data) => {
+      setArrivalmessage({
+        sender: data.userId,
+        text: data.text,
+        createdAt: Date.now(),
+      });
+    });
+  }, []);
+
+  useEffect(() => {
+    arrivalmessage &&
+      currentChat?.members.includes(arrivalmessage.sender) &&
+      setMessages((prev) => [...prev, arrivalmessage]);
+  }, [arrivalmessage, currentChat]);
+
+  useEffect(() => {
+    socket?.current.emit("addUser", user._id);
+    socket?.current.on("getUser", (users) => {
+      setOnlineuser(
+        user?.followings.filter((f) => users.some((u) => u.userId === f))
+      );
+    });
+  }, [user]);
 
   useEffect(() => {
     const getconversation = async () => {
@@ -30,8 +60,8 @@ function Messenger() {
   useEffect(() => {
     const getmessges = async () => {
       try {
-        const res = await axios.get("/messages/" + currentChat._id);
-        console.log(res);
+        const res = await axios.get("/messages/" + currentChat?._id);
+
         setMessages(res.data);
       } catch (err) {
         console.log(err);
@@ -48,6 +78,16 @@ function Messenger() {
       conversationId: currentChat._id,
     };
 
+    const recieverId = currentChat.members.find(
+      (member) => member !== user._id
+    );
+
+    socket.current.emit("sendmessage", {
+      userId: user._id,
+      recieverId: recieverId,
+      text: newmessage,
+    });
+
     try {
       const res = await axios.post("/messages", message);
       setMessages([...messages, res.data]);
@@ -60,6 +100,7 @@ function Messenger() {
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
+
   return (
     <>
       <Topbar />
@@ -71,8 +112,9 @@ function Messenger() {
               placeholder="Search for Friends"
               className="chatmenu_input"
             />
-            {conversation.map((c) => (
+            {conversation.map((c, index) => (
               <div
+                key={index}
                 onClick={() => {
                   setCurrentChat(c);
                 }}
@@ -87,8 +129,8 @@ function Messenger() {
             {currentChat ? (
               <>
                 <div className="chatbox_top">
-                  {messages.map((m) => (
-                    <div ref={scrollRef}>
+                  {messages.map((m, index) => (
+                    <div ref={scrollRef} key={index}>
                       <Message messages={m} own={m.sender === user._id} />
                     </div>
                   ))}
@@ -112,9 +154,11 @@ function Messenger() {
         </div>
         <div className="chat_online">
           <div className="chatonline_wrapper">
-            <Chatonline />
-            <Chatonline />
-            <Chatonline />
+            <Chatonline
+              onlineuser={onlineuser}
+              currentId={user._id}
+              setCurrentChat={setCurrentChat}
+            />
           </div>
         </div>
       </div>

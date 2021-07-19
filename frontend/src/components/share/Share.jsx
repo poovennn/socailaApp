@@ -14,7 +14,6 @@ function Share() {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const desc = useRef();
   const [file, setFile] = useState(null);
-  const [url, setUrl] = useState("");
 
   const handlechange = (e) => {
     setFile(e.target.files[0]);
@@ -29,7 +28,6 @@ function Share() {
     console.log("fileuploaed");
     const fileurl = await fileref.getDownloadURL();
     console.log(fileurl);
-    setUrl(fileurl);
 
     const newpost = {
       userId: user._id,
