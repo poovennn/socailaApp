@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import "./rightbar.css";
 import { User } from "../../Dummydata";
 import Online from "../online/Online";
-import axios from "axios";
+import axios from "../../axios";
 import { Link } from "react-router-dom";
 import { Authcontext } from "../../context/Authcontext";
 import AddIcon from "@material-ui/icons/Add";

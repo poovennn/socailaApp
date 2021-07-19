@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const helmet = require("helmet");
 const morgan = require("morgan");
+const cors = require("cors");
 const userRoute = require("./routes/user");
 const userAuth = require("./routes/auth");
 const userPost = require("./routes/post");
@@ -19,6 +20,12 @@ mongoose.connect(
   }
 );
 
+app.use(
+  cors({
+    origin: "*",
+    credentials: true,
+  })
+);
 app.use(express.json());
 app.use(helmet());
 app.use(morgan("common"));

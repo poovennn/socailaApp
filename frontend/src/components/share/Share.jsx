@@ -5,7 +5,7 @@ import LabelIcon from "@material-ui/icons/Label";
 import RoomIcon from "@material-ui/icons/Room";
 import EmojiEmotionsIcon from "@material-ui/icons/EmojiEmotions";
 import { Authcontext } from "../../context/Authcontext";
-import axios from "axios";
+import axios from "../../axios";
 import { storage } from "../../firebase";
 import CancelIcon from "@material-ui/icons/Cancel";
 import { CircularProgress } from "@material-ui/core";

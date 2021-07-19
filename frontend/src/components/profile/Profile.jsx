@@ -4,7 +4,7 @@ import Leftbar from "../../components/leftbar/Leftbar";
 import Feed from "../../components/feed/Feed";
 import Rightbar from "../rightbar/Rightbar";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import axios from "../../axios";
 import { useParams } from "react-router";
 
 function Profile() {

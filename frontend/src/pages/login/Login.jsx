@@ -8,7 +8,7 @@ import { CircularProgress } from "@material-ui/core";
 function Login() {
   const email = useRef();
   const password = useRef();
-  const { user, isFetching, dispatch } = useContext(Authcontext);
+  const { isFetching, dispatch } = useContext(Authcontext);
 
   const handlesubmit = (e) => {
     e.preventDefault();
@@ -18,7 +18,6 @@ function Login() {
     );
   };
 
-  console.log(user);
   return (
     <div className="login">
       <div className="login_wrapper">

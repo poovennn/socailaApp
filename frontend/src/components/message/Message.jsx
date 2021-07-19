@@ -1,7 +1,7 @@
 import "./message.css";
 import { format } from "timeago.js";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import axios from "../../axios";
 
 function Message({ messages, own, reciever, currentuser }) {
   const { friend, setFriend } = useState(null);

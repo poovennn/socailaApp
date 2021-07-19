@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from "react";
 import "./post.css";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import { useState } from "react";
-import axios from "axios";
+import axios from "../../axios";
 import { format } from "timeago.js";
 import { Link } from "react-router-dom";
 import { Authcontext } from "../../context/Authcontext";

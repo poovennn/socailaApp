@@ -5,7 +5,7 @@ import Message from "../../components/message/Message";
 import Chatonline from "../../components/chatonline/Chatonline";
 import { useContext, useEffect, useRef, useState } from "react";
 import { Authcontext } from "../../context/Authcontext";
-import axios from "axios";
+import axios from "../../axios";
 import { io } from "socket.io-client";
 
 function Messenger() {
@@ -21,7 +21,7 @@ function Messenger() {
   const socket = useRef();
 
   useEffect(() => {
-    socket.current = io("ws://localhost:9090");
+    socket.current = io("ws://pooven-socket.herokuapp.com");
     socket.current.on("getmessage", (data) => {
       setArrivalmessage({
         sender: data.userId,
