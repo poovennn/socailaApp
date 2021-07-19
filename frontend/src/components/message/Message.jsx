@@ -1,12 +1,39 @@
 import "./message.css";
 import { format } from "timeago.js";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
-function Message({ messages, own }) {
+function Message({ messages, own, reciever, currentuser }) {
+  const { friend, setFriend } = useState(null);
+  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+
+  useEffect(() => {
+    const getfriend = async () => {
+      try {
+        if (reciever) {
+          const res = await axios.get("/users?userId=" + reciever);
+          res && setFriend(res.data);
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getfriend();
+  }, [reciever, setFriend]);
+
   return (
     <div className={own ? "message own" : "message"}>
       <div className="msg_top">
         <img
-          src="https://firebasestorage.googleapis.com/v0/b/mydemo-71f56.appspot.com/o/pooven_images%2Fpooven.JPG?alt=media&token=452fb638-a7d5-43d9-b1d7-61a45f204a60"
+          src={
+            own
+              ? currentuser?.profilePicture
+                ? currentuser.profilePicture
+                : PF + "person/profile.png"
+              : friend?.profilePicture
+              ? friend.profilePicture
+              : PF + "person/profile.png"
+          }
           alt=""
           className="msg_img"
         />

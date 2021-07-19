@@ -16,6 +16,7 @@ function Messenger() {
   const [arrivalmessage, setArrivalmessage] = useState([]);
   const [onlineuser, setOnlineuser] = useState([]);
   const { user } = useContext(Authcontext);
+  const [reciever, setReciever] = useState("");
   const scrollRef = useRef();
   const socket = useRef();
 
@@ -82,6 +83,8 @@ function Messenger() {
       (member) => member !== user._id
     );
 
+    setReciever(recieverId);
+
     socket.current.emit("sendmessage", {
       userId: user._id,
       recieverId: recieverId,
@@ -131,7 +134,12 @@ function Messenger() {
                 <div className="chatbox_top">
                   {messages.map((m, index) => (
                     <div ref={scrollRef} key={index}>
-                      <Message messages={m} own={m.sender === user._id} />
+                      <Message
+                        messages={m}
+                        own={m.sender === user._id}
+                        reciever={reciever}
+                        currentuser={user}
+                      />
                     </div>
                   ))}
                 </div>

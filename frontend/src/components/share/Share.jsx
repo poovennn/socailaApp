@@ -8,12 +8,14 @@ import { Authcontext } from "../../context/Authcontext";
 import axios from "axios";
 import { storage } from "../../firebase";
 import CancelIcon from "@material-ui/icons/Cancel";
+import { CircularProgress } from "@material-ui/core";
 
 function Share() {
   const { user } = useContext(Authcontext);
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const desc = useRef();
   const [file, setFile] = useState(null);
+  const [uploading, setUploading] = useState(false);
 
   const handlechange = (e) => {
     setFile(e.target.files[0]);
@@ -21,22 +23,30 @@ function Share() {
 
   const handlesubmit = async (e) => {
     e.preventDefault();
-
-    const storageref = storage.ref("posts");
-    const fileref = storageref.child(file.name);
-    await fileref.put(file);
-    console.log("fileuploaed");
-    const fileurl = await fileref.getDownloadURL();
-    console.log(fileurl);
-
-    const newpost = {
-      userId: user._id,
-      desc: desc.current.value,
-      img: fileurl,
-    };
+    setUploading(true);
+    let newpost;
+    if (file) {
+      const storageref = storage.ref("posts");
+      const fileref = storageref.child(file.name);
+      await fileref.put(file);
+      console.log("fileuploaed");
+      const fileurl = await fileref.getDownloadURL();
+      newpost = {
+        userId: user._id,
+        desc: desc.current.value,
+        img: fileurl ? fileurl : "",
+      };
+    } else {
+      newpost = {
+        userId: user._id,
+        desc: desc.current.value,
+        img: "",
+      };
+    }
 
     try {
       await axios.post("/post", newpost);
+      setUploading(false);
       window.location.reload();
     } catch (err) {
       console.log(err);
@@ -99,7 +109,11 @@ function Share() {
             </div>
           </div>
           <button className="share_options_button" type="submit">
-            Post
+            {uploading ? (
+              <CircularProgress color="white" size="20px" />
+            ) : (
+              "Post"
+            )}
           </button>
         </form>
       </div>

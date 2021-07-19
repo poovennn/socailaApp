@@ -43,7 +43,9 @@ function Topbar() {
             <span className="topbar_badge">1</span>
           </div>
           <div className="topbar_icon">
-            <ChatIcon />
+            <Link to="/messenger">
+              <ChatIcon style={{ color: "white" }} />
+            </Link>
             <span className="topbar_badge">1</span>
           </div>
         </div>

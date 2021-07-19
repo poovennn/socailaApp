@@ -19,7 +19,7 @@ function Rightbar({ user }) {
   useEffect(() => {
     const getfriendlist = async () => {
       try {
-        const friendlist = await axios.get(`/users/friends/${user._id}`);
+        const friendlist = await axios.get(`/users/friends/${user?._id}`);
         setFriends(friendlist.data);
       } catch (err) {
         console.log(err);
@@ -27,7 +27,6 @@ function Rightbar({ user }) {
     };
     getfriendlist();
   }, [user]);
-  console.log(friends);
 
   const handleclick = async () => {
     try {
