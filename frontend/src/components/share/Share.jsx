@@ -110,7 +110,7 @@ function Share() {
           </div>
           <button className="share_options_button" type="submit">
             {uploading ? (
-              <CircularProgress color="white" size="20px" />
+              <CircularProgress color="secondary" size="20px" />
             ) : (
               "Post"
             )}

@@ -3,23 +3,34 @@ import { format } from "timeago.js";
 import { useEffect, useState } from "react";
 import axios from "../../axios";
 
-function Message({ messages, own, reciever, currentuser }) {
-  const { friend, setFriend } = useState(null);
+function Message({ messages, own, recieverid, currentuser }) {
+  const [friend, setFriend] = useState(null);
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
 
   useEffect(() => {
+    let unmount = false;
     const getfriend = async () => {
       try {
-        if (reciever) {
-          const res = await axios.get("/users?userId=" + reciever);
-          res && setFriend(res.data);
+        if (recieverid) {
+          const res = await axios.get("/users?userId=" + recieverid);
+          if (res) {
+            if (!unmount) {
+              setFriend(res.data);
+            }
+          }
+        } else {
+          console.log("error in recieverid");
         }
       } catch (err) {
         console.log(err);
       }
     };
     getfriend();
-  }, [reciever, setFriend]);
+
+    return () => {
+      unmount = true;
+    };
+  }, [recieverid]);
 
   return (
     <div className={own ? "message own" : "message"}>

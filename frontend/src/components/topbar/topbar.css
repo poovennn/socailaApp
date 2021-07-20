@@ -1,102 +1,100 @@
-.topbar{
-    height: 50px;
-    width: 100%;
-    background-color: #1877f2;
-    display: flex;
-    align-items: center;
-    position: sticky;
-    top: 0;
-    z-index: 999;
+.topbar {
+  height: 50px;
+  width: 100%;
+  background-color: #1877f2;
+  display: flex;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 999;
 }
 
-
-
-.topbar_left{
-    flex: 3;
+.topbar_left {
+  flex: 3;
 }
 
-.topbar_logo{
-    font-size: 24px;
-    margin-left: 20px;
-    font-weight: bold;
-    color: white;
-    cursor: pointer;
+.topbar_logo {
+  font-size: 24px;
+  margin-left: 20px;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
 }
 
-.topbar_center{
-    flex: 5;
-    display: flex;
+.topbar_center {
+  flex: 5;
+  display: flex;
 }
 
-.searchbar{
-    width: 100%;
-    height: 30px;
-    background-color: white;
-    border-radius: 30px;
-    display: flex;
-    align-items: center;
-
+.searchbar {
+  width: 100%;
+  height: 30px;
+  background-color: white;
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
 }
-.search_icon{
-    font-size: 20px !important;
-    margin-left: 10px;
+.search_icon {
+  font-size: 20px !important;
+  margin-left: 10px;
 }
-.search_input{
-    width: 70%;
-    border: none;
-}
-
-.search_input:focus{
-    outline: none;
+.search_input {
+  width: 70%;
+  border: none;
 }
 
-.topbar_right{
-    flex: 4;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    color: white;
+.search_input:focus {
+  outline: none;
 }
 
-.topbar_link{
-    margin-right: 10px;
-    font-size: 14px;
-    cursor: pointer;
-
+.topbar_right {
+  flex: 4;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  color: white;
 }
 
-.topbar_icons{
-    display: flex;
-
+.topbar_link {
+  margin-right: 10px;
+  font-size: 14px;
+  cursor: pointer;
 }
 
-.topbar_icon{
-    margin-right: 15px;
-    cursor: pointer;
-    position: relative;
-
+.topbar_icons {
+  display: flex;
 }
 
-.topbar_badge{
-    width: 15px;
-    height: 15px;
-    background-color: red;
-    
-    border-radius: 50%;
-    color: white;
-    position: absolute;
-    top: -5px;
-    right: -5px;
-   /* justify-content: center;
+.topbar_icon {
+  margin-right: 15px;
+  cursor: pointer;
+  position: relative;
+}
+
+.topbar_icon:hover {
+  background-color: grey;
+}
+
+.topbar_badge {
+  width: 15px;
+  height: 15px;
+  background-color: red;
+
+  border-radius: 50%;
+  color: white;
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  /* justify-content: center;
    align-items: center; */
-   text-align: center;
-   font-size: 12px;
+  text-align: center;
+  font-size: 12px;
 }
 
-.topbar_profile{
-    height: 32px;
-    width: 32px;
-    border-radius: 50%;
-    object-fit: cover;
-    cursor: pointer;
+.topbar_profile {
+  height: 32px;
+  width: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  cursor: pointer;
 }

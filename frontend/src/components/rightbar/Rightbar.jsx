@@ -17,29 +17,39 @@ function Rightbar({ user }) {
   );
 
   useEffect(() => {
+    let unmount = false;
     const getfriendlist = async () => {
       try {
-        const friendlist = await axios.get(`/users/friends/${user?._id}`);
-        setFriends(friendlist.data);
+        if (user) {
+          const friendlist = await axios.get(
+            `/users/friends/${user._id && user._id}`
+          );
+          if (!unmount) {
+            setFriends(friendlist.data);
+          }
+        }
       } catch (err) {
         console.log(err);
       }
     };
     getfriendlist();
+    return () => {
+      unmount = true;
+    };
   }, [user]);
 
   const handleclick = async () => {
     try {
       if (followed) {
-        await axios.put("/users/" + user._id + "/unfollow", {
+        await axios.put("/users/" + user?._id + "/unfollow", {
           userId: currentuser._id,
         });
-        dispatch({ type: "UNFOLLOW", payload: user._id });
+        dispatch({ type: "UNFOLLOW", payload: user?._id });
       } else {
-        await axios.put("/users/" + user._id + "/follow", {
+        await axios.put("/users/" + user?._id + "/follow", {
           userId: currentuser._id,
         });
-        dispatch({ type: "FOLLOW", payload: user._id });
+        dispatch({ type: "FOLLOW", payload: user?._id });
       }
     } catch (err) {
       console.log(err);
@@ -103,7 +113,7 @@ function Rightbar({ user }) {
             <Link
               key={friend._id}
               to={"/profile/" + friend.username}
-              style={{ textDecoration: "none" }}
+              style={{ textDecoration: "none", color: "black" }}
             >
               <div className="rightbar_following">
                 <img
@@ -121,32 +131,6 @@ function Rightbar({ user }) {
               </div>
             </Link>
           ))}
-
-          {/* <div className="rightbar_following">
-                  <img src={`${PF}person/4.jpeg`} alt="" className="rightbar_followingsimg" />
-                  <span className="rightbar_followingsname">Hari Prasad</span>
-              </div>
-
-              <div className="rightbar_following">
-                  <img src={`${PF}person/3.jpeg`} alt="" className="rightbar_followingsimg" />
-                  <span className="rightbar_followingsname">Nithees Kumar</span>
-              </div>
-
-              <div className="rightbar_following">
-                  <img src={`${PF}person/2.jpeg`} alt="" className="rightbar_followingsimg" />
-                  <span className="rightbar_followingsname">Kural Arasu</span>
-              </div>
-
-              <div className="rightbar_following">
-              
-                  <img src={`${PF}person/9.jpeg`} alt="" className="rightbar_followingsimg" />
-                  <span className="rightbar_followingsname">Lokesh Singh</span>
-              </div>
-
-              <div className="rightbar_following">
-                  <img src={`${PF}person/8.jpeg`} alt="" className="rightbar_followingsimg" />
-                  <span className="rightbar_followingsname">Ela king</span>
-              </div> */}
         </div>
       </>
     );
@@ -155,22 +139,6 @@ function Rightbar({ user }) {
   return (
     <div className="rightbar">
       <div className="rightbar_wrapper">
-        {/* <div className="birthday">
-                    <img src="/assets/gift.png" alt="" className="birthday_img" />
-                    <span className="birthday_text">
-                       <b>hari prasad</b> and <b>3 other friends</b> have birthday today
-                    </span>
-                </div>
-                <img src="/assets/ad.png" alt="" className="rightbar_ad" />
-                <h4 className="rightbar_title">Online Friends</h4>
-                <ul className="rightbar_friendlists">
-                   
-                  {User.map(u =>(
-                      <Online  user = {u}/>
-                  ))}
-                    
-                </ul> */}
-
         {user ? <ProfileRightbar /> : <HomeRightbar />}
       </div>
     </div>

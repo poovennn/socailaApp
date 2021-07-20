@@ -19,11 +19,21 @@ function Post({ post }) {
   }, [post.likes, currentuser._id]);
 
   useEffect(() => {
+    let unmount = false;
     const getuser = async () => {
-      const res = await axios.get(`/users?userId=${post.userId}`);
-      setUser(res.data);
+      try {
+        const res = await axios.get(`/users?userId=${post.userId}`);
+        if (!unmount) {
+          setUser(res.data);
+        }
+      } catch (err) {
+        console.log(err);
+      }
     };
     getuser();
+    return () => {
+      unmount = true;
+    };
   }, [post.userId]);
 
   const handleclick = () => {
@@ -42,7 +52,7 @@ function Post({ post }) {
             <Link to={`profile/${user.username}`}>
               <img
                 src={
-                  user.profilePicture
+                  user?.profilePicture
                     ? user.profilePicture
                     : PF + "person/profile.png"
                 }

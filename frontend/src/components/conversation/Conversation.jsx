@@ -7,16 +7,20 @@ function Conversation({ conversation, currentuser }) {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
 
   useEffect(() => {
+    let unmount = false;
     const friendId = conversation.members.find((m) => m !== currentuser._id);
     const getuser = async () => {
       try {
         const res = await axios.get("/users?userId=" + friendId);
-        setUser(res.data);
+        !unmount && setUser(res.data);
       } catch (err) {
         console.log(err);
       }
     };
     getuser();
+    return () => {
+      unmount = true;
+    };
   }, [currentuser, conversation]);
   return (
     <div className="conversation">

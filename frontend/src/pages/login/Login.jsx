@@ -58,7 +58,7 @@ function Login() {
             <span className="login_forgot">Forgot Password</span>
             <button className="login_register">
               {isFetching ? (
-                <CircularProgress color="white" size="20px" />
+                <CircularProgress color="secondary" size="20px" />
               ) : (
                 "Create Account"
               )}

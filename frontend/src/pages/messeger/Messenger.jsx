@@ -7,6 +7,7 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { Authcontext } from "../../context/Authcontext";
 import axios from "../../axios";
 import { io } from "socket.io-client";
+import { CircularProgress } from "@material-ui/core";
 
 function Messenger() {
   const [conversation, setConversation] = useState([]);
@@ -19,6 +20,7 @@ function Messenger() {
   const [reciever, setReciever] = useState("");
   const scrollRef = useRef();
   const socket = useRef();
+  const [sending, setSending] = useState(false);
 
   useEffect(() => {
     socket.current = io("ws://pooven-socket.herokuapp.com");
@@ -47,32 +49,41 @@ function Messenger() {
   }, [user]);
 
   useEffect(() => {
+    let unmount = false;
     const getconversation = async () => {
       try {
         const res = await axios.get("/conversations/" + user._id);
-        setConversation(res.data);
+        !unmount && setConversation(res.data);
       } catch (err) {
         console.log(err);
       }
     };
     getconversation();
+    return () => {
+      unmount = true;
+    };
   }, [user]);
 
   useEffect(() => {
+    let unmount = false;
     const getmessges = async () => {
       try {
         const res = await axios.get("/messages/" + currentChat?._id);
 
-        setMessages(res.data);
+        !unmount && setMessages(res.data);
       } catch (err) {
         console.log(err);
       }
     };
     getmessges();
+    return () => {
+      unmount = true;
+    };
   }, [currentChat]);
 
   const handlesubmit = async (e) => {
     e.preventDefault();
+    setSending(true);
     const message = {
       sender: user._id,
       text: newmessage,
@@ -83,8 +94,6 @@ function Messenger() {
       (member) => member !== user._id
     );
 
-    setReciever(recieverId);
-
     socket.current.emit("sendmessage", {
       userId: user._id,
       recieverId: recieverId,
@@ -94,11 +103,19 @@ function Messenger() {
     try {
       const res = await axios.post("/messages", message);
       setMessages([...messages, res.data]);
+      setSending(false);
       setNewmessage("");
     } catch (err) {
       console.log(err);
     }
   };
+
+  useEffect(() => {
+    const recieverId = currentChat?.members?.find(
+      (member) => member !== user._id
+    );
+    setReciever(recieverId);
+  }, [currentChat, user]);
 
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -137,7 +154,7 @@ function Messenger() {
                       <Message
                         messages={m}
                         own={m.sender === user._id}
-                        reciever={reciever}
+                        recieverid={reciever ? reciever : ""}
                         currentuser={user}
                       />
                     </div>
@@ -151,7 +168,11 @@ function Messenger() {
                     value={newmessage}
                   ></textarea>
                   <button className="chatbox_btn" onClick={handlesubmit}>
-                    Send
+                    {sending ? (
+                      <CircularProgress size="20px" color="secondary" />
+                    ) : (
+                      "send"
+                    )}
                   </button>
                 </div>{" "}
               </>

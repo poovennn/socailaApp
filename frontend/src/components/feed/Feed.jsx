@@ -10,18 +10,29 @@ function Feed({ username }) {
   const { user } = useContext(Authcontext);
 
   useEffect(() => {
+    let unmount = false;
     const getpost = async () => {
-      const res = username
-        ? await axios.get("/post/profile/" + username)
-        : await axios.get("/post/timeline/" + user._id);
-      setPosts(
-        res.data.sort((p1, p2) => {
-          return new Date(p2.createdAt) - new Date(p1.createdAt);
-        })
-      );
+      try {
+        const res = username
+          ? await axios.get("/post/profile/" + username)
+          : await axios.get("/post/timeline/" + user?._id);
+        if (!unmount) {
+          setPosts(
+            res.data.sort((p1, p2) => {
+              return new Date(p2.createdAt) - new Date(p1.createdAt);
+            })
+          );
+        }
+      } catch (err) {
+        console.log(err);
+      }
     };
 
     getpost();
+
+    return () => {
+      unmount = false;
+    };
   }, [username, user._id]);
 
   return (
