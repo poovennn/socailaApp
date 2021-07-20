@@ -4,7 +4,7 @@ import "./conversation.css";
 
 function Conversation({ conversation, currentuser }) {
   const [user, setUser] = useState(null);
-  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+ 
 
   useEffect(() => {
     let unmount = false;
@@ -29,8 +29,8 @@ function Conversation({ conversation, currentuser }) {
           user
             ? user.profilePicture
               ? user.profilePicture
-              : PF + "/person/profile.png"
-            : PF + "/person/profile.png"
+              : "/assets/person/profile.png"
+            :  "/assets/person/profile.png"
         }
         alt=""
         className="conversation_img"

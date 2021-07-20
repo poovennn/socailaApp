@@ -9,7 +9,7 @@ import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
 
 function Rightbar({ user }) {
-  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+  
   const [friends, setFriends] = useState([]);
   const { user: currentuser, dispatch } = useContext(Authcontext);
   const [followed, setFollowed] = useState(
@@ -61,7 +61,7 @@ function Rightbar({ user }) {
     return (
       <>
         <div className="birthday">
-          <img src="/assets/gift.png" alt="" className="birthday_img" />
+          <img src="/assets/gift.png"alt="" className="birthday_img" />
           <span className="birthday_text">
             <b>hari prasad</b> and <b>3 other friends</b> have birthday today
           </span>
@@ -120,7 +120,7 @@ function Rightbar({ user }) {
                   src={
                     friend.profilePicture
                       ? friend.profilePicture
-                      : PF + "person/profile.png"
+                      : "/assets/person/profile.png"
                   }
                   alt=""
                   className="rightbar_followingsimg"

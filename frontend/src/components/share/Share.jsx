@@ -12,7 +12,7 @@ import { CircularProgress } from "@material-ui/core";
 
 function Share() {
   const { user } = useContext(Authcontext);
-  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+  
   const desc = useRef();
   const [file, setFile] = useState(null);
   const [uploading, setUploading] = useState(false);
@@ -61,7 +61,7 @@ function Share() {
             src={
               user.profilePicture
                 ? user.profilePicture
-                : PF + "person/profile.png"
+                : "/assets/person/profile.png"
             }
             alt="share_icon"
             className="share_icon"

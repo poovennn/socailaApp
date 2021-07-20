@@ -10,7 +10,7 @@ import { Authcontext } from "../../context/Authcontext";
 function Post({ post }) {
   const [like, setLike] = useState(post.likes.length);
   const [isliked, setIsliked] = useState(false);
-  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+
   const [user, setUser] = useState({});
   const { user: currentuser } = useContext(Authcontext);
 
@@ -20,6 +20,8 @@ function Post({ post }) {
 
   useEffect(() => {
     let unmount = false;
+    import likeicon from "../../assets/like.png";
+
     const getuser = async () => {
       try {
         const res = await axios.get(`/users?userId=${post.userId}`);
@@ -54,7 +56,7 @@ function Post({ post }) {
                 src={
                   user?.profilePicture
                     ? user.profilePicture
-                    : PF + "person/profile.png"
+                    : "/assets/person/profile.png"
                 }
                 alt=""
                 className="post_top_left_img"
@@ -75,13 +77,13 @@ function Post({ post }) {
         <div className="post_bottom">
           <div className="post_bottom_left">
             <img
-              src={`${PF}like.png`}
+              src={"/assets/like.png"}
               alt=""
               className="post_bottom_left_img"
               onClick={handleclick}
             />
             <img
-              src={`${PF}heart.png`}
+              src={"/assets/heart.png"}
               alt=""
               className="post_bottom_left_img"
               onClick={handleclick}

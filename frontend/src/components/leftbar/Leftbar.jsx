@@ -12,6 +12,7 @@ import GolfCourseIcon from "@material-ui/icons/GolfCourse";
 import { User } from "../../Dummydata";
 import Friends from "../Friends/Friends";
 
+
 function Leftbar() {
   return (
     <div className="leftbar">

@@ -3,6 +3,10 @@ import { useRef } from "react";
 import axios from "../../axios";
 import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
+import { CircularProgress } from "@material-ui/core";
+import { useState } from "react";
+
+
 
 function Login() {
   const username = useRef();
@@ -10,8 +14,11 @@ function Login() {
   const password = useRef();
   const password1 = useRef();
   const history = useHistory();
+  const [loading , setLoading] = useState(false)
+
 
   const handleclick = async (e) => {
+    setLoading(true)
     e.preventDefault();
     if (password1.current.value !== password.current.value) {
       password1.current.setCustomValidity("passwords dont match");
@@ -71,10 +78,14 @@ function Login() {
               minLength="5"
             />
             <button className="login_button" type="submit">
-              Register
+              {loading? <CircularProgress color="secondary" size="20px" /> : "Register"}
+              
             </button>
             <Link to="/login">
-              <button className="login_register">Log In</button>
+              <button className="login_register">
+               Log In
+                
+                </button>
             </Link>
           </form>
         </div>

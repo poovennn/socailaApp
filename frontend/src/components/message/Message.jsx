@@ -5,7 +5,7 @@ import axios from "../../axios";
 
 function Message({ messages, own, recieverid, currentuser }) {
   const [friend, setFriend] = useState(null);
-  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+  
 
   useEffect(() => {
     let unmount = false;
@@ -40,10 +40,10 @@ function Message({ messages, own, recieverid, currentuser }) {
             own
               ? currentuser?.profilePicture
                 ? currentuser.profilePicture
-                : PF + "person/profile.png"
+                : "/assets/person/profile.png"
               : friend?.profilePicture
               ? friend.profilePicture
-              : PF + "person/profile.png"
+              : "/assets/person/profile.png"
           }
           alt=""
           className="msg_img"

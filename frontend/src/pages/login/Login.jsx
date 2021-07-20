@@ -50,7 +50,7 @@ function Login() {
               disabled={isFetching}
             >
               {isFetching ? (
-                <CircularProgress color="white" size="20px" />
+                <CircularProgress color="secondary" size="20px" />
               ) : (
                 "Login"
               )}

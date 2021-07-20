@@ -2,10 +2,11 @@ import axios from "../../axios";
 import { useEffect, useState } from "react";
 import "./chatonline.css";
 
+
 function Chatonline({ onlineuser, currentId, setCurrentChat }) {
   const [friends, setFriends] = useState([]);
   const [onlineFriends, setOnlineFriends] = useState([]);
-  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+ 
 
   useEffect(() => {
     const getfriends = async () => {
@@ -55,7 +56,7 @@ function Chatonline({ onlineuser, currentId, setCurrentChat }) {
           <div className="chatonline_friend">
             <img
               src={
-                o?.profilePicture ? o.profilePicture : PF + "person/profile.png"
+                o?.profilePicture ? o.profilePicture : "/assets/person/profile.png"
               }
               alt=""
               className="chatonline_friend_img"
