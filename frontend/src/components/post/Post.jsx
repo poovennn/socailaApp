@@ -20,7 +20,6 @@ function Post({ post }) {
 
   useEffect(() => {
     let unmount = false;
-    import likeicon from "../../assets/like.png";
 
     const getuser = async () => {
       try {
